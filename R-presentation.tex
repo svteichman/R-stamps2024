@@ -1,0 +1,443 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+  ignorenonframetext,
+]{beamer}
+\usepackage{pgfpages}
+\setbeamertemplate{caption}[numbered]
+\setbeamertemplate{caption label separator}{: }
+\setbeamercolor{caption name}{fg=normal text.fg}
+\beamertemplatenavigationsymbolsempty
+% Prevent slide breaks in the middle of a paragraph
+\widowpenalties 1 10000
+\raggedbottom
+\setbeamertemplate{part page}{
+  \centering
+  \begin{beamercolorbox}[sep=16pt,center]{part title}
+    \usebeamerfont{part title}\insertpart\par
+  \end{beamercolorbox}
+}
+\setbeamertemplate{section page}{
+  \centering
+  \begin{beamercolorbox}[sep=12pt,center]{part title}
+    \usebeamerfont{section title}\insertsection\par
+  \end{beamercolorbox}
+}
+\setbeamertemplate{subsection page}{
+  \centering
+  \begin{beamercolorbox}[sep=8pt,center]{part title}
+    \usebeamerfont{subsection title}\insertsubsection\par
+  \end{beamercolorbox}
+}
+\AtBeginPart{
+  \frame{\partpage}
+}
+\AtBeginSection{
+  \ifbibliography
+  \else
+    \frame{\sectionpage}
+  \fi
+}
+\AtBeginSubsection{
+  \frame{\subsectionpage}
+}
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\newif\ifbibliography
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={An Introduction to R},
+  pdfauthor={Sarah Teichman},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{An Introduction to R}
+\subtitle{The basics}
+\author{Sarah Teichman}
+\date{}
+
+\begin{document}
+\frame{\titlepage}
+
+\begin{frame}{What is R}
+\phantomsection\label{what-is-r}
+R is a programming language commonly used for data analysis and
+statistics.
+
+\begin{itemize}
+\tightlist
+\item
+  reproducible
+\item
+  free
+\item
+  open-source
+\item
+  large community of users and developers
+\end{itemize}
+
+Download \href{https://cran.rstudio.com/}{here}.
+\end{frame}
+
+\begin{frame}{What is RStudio}
+\phantomsection\label{what-is-rstudio}
+RStudio is an Integrated Development Environment (IDE) for R.
+
+\begin{itemize}
+\tightlist
+\item
+  write code
+\item
+  run code
+\item
+  navigate files
+\item
+  visualize plots
+\item
+  open help files
+\end{itemize}
+
+Download \href{https://posit.co/download/rstudio-desktop/}{here}.
+\end{frame}
+
+\begin{frame}{How to access RStudio}
+\phantomsection\label{how-to-access-rstudio}
+\begin{itemize}
+\tightlist
+\item
+  locally, if you have downloaded R and RStudio on your computer
+
+  \begin{itemize}
+  \tightlist
+  \item
+    uses your own computer and with access to your files
+  \item
+    has the computational resources and limitations of your computer
+  \end{itemize}
+\item
+  remotely, via RStudio server
+
+  \begin{itemize}
+  \tightlist
+  \item
+    access via a web browser
+  \item
+    often available through your institution
+  \item
+    may have computational advantages
+  \item
+    useful in a course setting like this one!
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{How to access RStudio server}
+\phantomsection\label{how-to-access-rstudio-server}
+\begin{itemize}
+\tightlist
+\item
+  find your personal R Studio server link from
+  \href{https://hackmd.io/oz5sTY9KRCqdHHkM9iNJyg?view}{this spreadsheet}
+  *update!!
+\item
+  username: stamps
+\item
+  password: stamps2024
+\end{itemize}
+\end{frame}
+
+\begin{frame}{RStudio organization}
+\phantomsection\label{rstudio-organization}
+RStudio has a four pane layout.
+
+\begin{itemize}
+\tightlist
+\item
+  console (run single lines of code)
+\item
+  editor (open and write scripts)
+\item
+  environment etc. (see what objects exist in work space)
+\item
+  files etc. (navigate files, view plots, open help files)
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Console}
+\phantomsection\label{console}
+Use the \textbf{console} to run individual lines of code.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DecValTok{5} \SpecialCharTok{+} \DecValTok{384}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 389
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x }\OtherTok{\textless{}{-}} \DecValTok{10} \CommentTok{\# set variable with \textless{}{-} operator :) }
+\NormalTok{y }\OtherTok{=} \DecValTok{6} \CommentTok{\# set variable with = operator :( }
+\NormalTok{x }\SpecialCharTok{+}\NormalTok{ y}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 16
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Editor}
+\phantomsection\label{editor}
+Use the \textbf{editor} for opening and writing scripts.
+
+\begin{itemize}
+\tightlist
+\item
+  for a workflow to be reproducible, all code should be written in a
+  script (not in the console)
+\item
+  in R you are working in a folder on your computer
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \texttt{getwd()} to see (get) your working directory
+  \item
+    \texttt{setwd()} to change (set) your working directory
+  \end{itemize}
+\item
+  run code with \texttt{Run} button (and options) or
+  \texttt{Ctrl}/\texttt{Command} + \texttt{Enter} for a single line
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Environment and History}
+\phantomsection\label{environment-and-history}
+\begin{itemize}
+\tightlist
+\item
+  each object saved in your working space will be in the
+  \textbf{environment}
+\item
+  \textbf{history} saves most recent lines of code
+\item
+  extension: you can add a \textbf{Git} plug-in to this pane for version
+  control through GitHub
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \href{https://happygitwithr.com/index.html}{here} is a great
+    resource for R and Git!
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Files/Plots/Help}
+\phantomsection\label{filesplotshelp}
+\begin{itemize}
+\tightlist
+\item
+  use files to navigate files on your computer
+\item
+  use plots to display visualizations
+\item
+  use help to access help files
+
+  \begin{itemize}
+  \tightlist
+  \item
+    type \texttt{?} to pull up a file, for example \texttt{?sum}
+  \item
+    for more extensive questions, Google is also useful!
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Packages}
+\phantomsection\label{packages}
+\begin{itemize}
+\tightlist
+\item
+  base functions (Base R) are automatically installed with R
+
+  \begin{itemize}
+  \tightlist
+  \item
+    includes mathematical operations, data manipulation, plotting, etc.
+  \end{itemize}
+\item
+  a package is a way to store files with code, documentation, and data,
+  and let users download and use those files
+\item
+  the \texttt{tidyverse} is a suite of common data manipulation and
+  visualization packages
+
+  \begin{itemize}
+  \tightlist
+  \item
+    includes \texttt{dplyr}, \texttt{ggplot}, among others
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Packages}
+\phantomsection\label{packages-1}
+\begin{itemize}
+\tightlist
+\item
+  CRAN package repository has \textasciitilde20,000 packages
+
+  \begin{itemize}
+  \tightlist
+  \item
+    most packages available here
+  \item
+    install with \texttt{install.packages("package\_name")}
+  \item
+    load in each R session with \texttt{library(package\_name)}
+  \end{itemize}
+\item
+  Bioconductor has \textasciitilde2,000 packages
+\item
+  anyone can make their own package (often available to download on
+  GitHub)
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{R Markdown}
+\phantomsection\label{r-markdown}
+\begin{itemize}
+\tightlist
+\item
+  in R scripts (.R), each line is evaluated unless it is a comment
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \texttt{\#\ this\ is\ a\ comment}
+  \end{itemize}
+\item
+  in R Markdown files (.Rmd), you can combine code, output, and text
+
+  \begin{itemize}
+  \tightlist
+  \item
+    code in ``chunks'', anything within chunk is evaluated
+  \item
+    anything outside of chunk is output as text
+  \end{itemize}
+\item
+  when compiled or ``knit'' .Rmd files turn into HTML, PDF, slides,
+  webpages, etc.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{This session}
+\phantomsection\label{this-session}
+\begin{itemize}
+\tightlist
+\item
+  download the ``R.zip'' file from \ldots{} and upload it to your remote
+  RStudio instance
+\item
+  work through the file ``intro-to-R.Rmd'' and the accompanying
+  tutorials
+
+  \begin{itemize}
+  \tightlist
+  \item
+    this is self-paced, start where you think will be the most helpful
+    to you
+  \end{itemize}
+\item
+  put your stickie notes up with questions!
+\end{itemize}
+\end{frame}
+
+\end{document}

@@ -1,0 +1,96 @@
+---
+title: "Introduction to R, STAMPS 2024"
+author: "Sarah Teichman"
+date: "2024-07-10"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Organization
+
+Welcome to R! The goal of this lesson is to level up your R skills, whether this is your first time using it or you're already a pro. This lesson is made up of six tutorials, each in a different .Rmd file within the "tutorials" folder. This document will be your guide, describing each tutorial and giving one or two practice questions for each topic. The tutorials build on each other, so start at the beginning if you're new to R, and if not then choose the first one with material new to you. We suggest that if you think you know the material from a tutorial, go through the exercises in this file anyway to shake the cobwebs off. 
+
+## Lesson 1: Data and data types
+
+This tutorial provides an introduction to reading data into R and figuring out the basics about the dataset. It also contains an introduction to some of the basic data types in R (values, vectors, lists) and how to subset them. 
+
+Exercises:
+
+1. Read in the "covariates" data set in the "data" folder. How many observations are there? What is the name of the third variable in the dataset? 
+```{r}
+
+```
+
+2. What is the third observation for the second variable in the "covariates" dataset? 
+```{r}
+
+```
+
+## Lesson 2: Using and writing functions
+
+This tutorial describes what an R function is, how to figure out which arguments to use in a function, and how to write your own function. 
+
+Exercises:
+
+1. Randomly draw three values from the vector `covariates$SampleName` with the function `sample()`. Check out the documentation for this function by putting `?sample` in the console. Do this again including an additional argument that is not required for `sample()`. 
+
+```{r}
+
+```
+
+2. Consider this function for calculating the centered log ratio (CLR) of a vector. 
+
+```{r}
+clr <- function(counts) {    
+  transformed <- log(counts) - mean(log(counts))
+  return(transformed)
+}
+```
+
+Notice what happens when we include a $0$ in our vector `counts`.
+
+```{r}
+clr(c(1, 5, 4))
+clr(c(1, 5, 0, 4))
+```
+
+Turns out we can't take the log of $0$! Rewrite this to include an optional argument `pseudo` that is set to $0.5$ by default, that will add this quantity to all $0$ values in the input `counts`.
+
+```{r, eval = FALSE}
+clr_with_pseudo <- function(counts, ) { # add optional argument
+  new_counts <- counts
+  new_counts[___] <- [____] # add pseudocounts to all 0 counts 
+  transformed <- log(new_counts) - mean(log(new_counts))
+  return(transformed)
+}
+```
+
+## Lesson 3: Phyloseq 
+
+Phyloseq is an R package that can help you organize and manipulate microbiome data. A phyloseq object consists of three linked data tables that hold the sample data, otu data, and taxonomy data, for a specific data set. This tutorial introduces the structure of a phyloseq object, gives some examples of data manipulation and visualization with a phyloseq object, and shows you how to make your own. 
+
+Exercises: Read in the `phyloseq` object below. Make a smaller `phyloseq` object that aggregates counts at the class level and only includes classes in the phylum *Cyanobacteria*. How many classes are remaining?
+
+```{r}
+phyloseq_obj <- readRDS("data/phyloseq_obj.rds")
+
+```
+
+## Lesson 4: Data manipulation with the tidyverse
+
+...
+
+Exercises: 
+
+## Lesson 5: Plotting with the tidyverse 
+
+...
+
+Exercises:
+
+## Bonus challenge!
+
+Sarah - to-do based on conversation with Amy! 
