@@ -3,9 +3,8 @@ title: "An Introduction to R"
 author: "Sarah Teichman"
 date: ''
 output:
+  ioslides_presentation: default
   beamer_presentation: default
-  ioslides_presentation:
-    keep_md: no
 subtitle: The basics
 ---
 
@@ -118,8 +117,8 @@ Use the **editor** for opening and writing scripts.
 
 - no one (that I know) writes code perfectly the first time! 
 - when I get an error message, I'll often start by Googling the error
-- some people like to ask ChatGPT for help in their code
-  - "write me an R script to calculate the centered log ratio (CLR) transformation of a vector of counts"
+- you could also ask ChatGPT for help with your code
+  - "write me an R script to use ggplot to make a histogram of the variable 'count' in the data frame 'data'"
 - here at STAMPS, chat with your neighbors and get help from the instructional team! 
 
 ## This session
