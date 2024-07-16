@@ -85,11 +85,27 @@ phyloseq_obj <- readRDS("data/phyloseq_obj.rds")
 
 Exercises: 
 
-## Tutorial 5: Plotting with the tidyverse 
+## Tutorial 5: Plotting and pivoting tables with the tidyverse 
 
-...
+The tidyverse includes the `pivot_wider` and `pivot_longer` functions that are useful
+for modifying data tables. These can be especially helpful to process data prior to plotting.
+The `ggplot2` package in the tidyverse provides extensive functionality to make various
+type of plots from your data.
 
 Exercises:
+
+1. Use the `pivot_longer` and `dplyr` functions to make a long data table from the
+`phylum_data.txt` data that has a `taxa` column and a corresponding `count` column
+for the count of a taxa in a particular sample.
+
+
+2. Use the table you made in the previous exericse to make a plot of the taxa counts for each taxa in the `phylum_data` table that is faceted by season and location, so that each plot show the summarised counts of each taxa for each season across each location.
+
+3. Use the `phylum_data.txt` data to make a scatter plot of how the raw counts of Proteobacteria and
+Cyanobacteria vary together.
+
+
+If you are able to complete the above exercises, you can try the bonus challenge in tutorial 5!
 
 ## Optional bonus challenge!
 
