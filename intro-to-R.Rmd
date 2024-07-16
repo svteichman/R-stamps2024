@@ -11,9 +11,9 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Organization
 
-Welcome to R! The goal of this lesson is to level up your R skills, whether this is your first time using it or you're already a pro. This lesson is made up of six tutorials, each in a different .Rmd file within the "tutorials" folder. This document will be your guide, describing each tutorial and giving one or two practice questions for each topic. The tutorials build on each other, so start at the beginning if you're new to R, and if not then choose the first one with material new to you. We suggest that if you think you know the material from a tutorial, go through the exercises in this file anyway to shake the cobwebs off. 
+Welcome to R! The goal of this lesson is to level up your R skills, whether this is your first time using it or you're already a pro. This lesson is made up of five tutorials, each in a different .Rmd file within the "tutorials" folder. This document will be your guide, describing each tutorial and giving one or two practice questions for each topic. The tutorials build on each other, so start at the beginning if you're new to R, and if not then choose the first one with material new to you. We suggest that if you think you know the material from a tutorial, go through the exercises in this file anyway to shake the cobwebs off. 
 
-## Lesson 1: Data and data types
+## Tutorial 1: Data and data types
 
 This tutorial provides an introduction to reading data into R and figuring out the basics about the dataset. It also contains an introduction to some of the basic data types in R (values, vectors, lists) and how to subset them. 
 
@@ -29,7 +29,7 @@ Exercises:
 
 ```
 
-## Lesson 2: Using and writing functions
+## Tutorial 2: Using and writing functions
 
 This tutorial describes what an R function is, how to figure out which arguments to use in a function, and how to write your own function. 
 
@@ -68,7 +68,7 @@ clr_with_pseudo <- function(counts, ) { # add optional argument
 }
 ```
 
-## Lesson 3: Phyloseq 
+## Tutorial 3: Phyloseq 
 
 Phyloseq is an R package that can help you organize and manipulate microbiome data. A phyloseq object consists of three linked data tables that hold the sample data, otu data, and taxonomy data, for a specific data set. This tutorial introduces the structure of a phyloseq object, gives some examples of data manipulation and visualization with a phyloseq object, and shows you how to make your own. 
 
@@ -79,13 +79,13 @@ phyloseq_obj <- readRDS("data/phyloseq_obj.rds")
 
 ```
 
-## Lesson 4: Data manipulation with the tidyverse
+## Tutorial 4: Data manipulation with the tidyverse
 
 ...
 
 Exercises: 
 
-## Lesson 5: Plotting with the tidyverse 
+## Tutorial 5: Plotting with the tidyverse 
 
 ...
 
