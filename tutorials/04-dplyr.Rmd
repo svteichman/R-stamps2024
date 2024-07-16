@@ -14,9 +14,7 @@ knitr::opts_chunk$set(echo = TRUE)
 # STAMPS 2023
 ## Lesson 3 - dplyr and Tidyverse
 
-Tidyverse is a suite of powerful and cohesive R packages. The  dplyr package has commands for common data manipulation. In this lesson, we will overview the basics of using dplyr.
-
-<img src="figures/TidyverseLogos.png" alt="Packages in Tidyverse" width="500">
+Tidyverse is a suite of powerful and cohesive R packages. The  dplyr package has commands for common data manipulation. In this tutorial, we will overview the basics of using dplyr. 
 
 Do you know how to order a data set by the entries of a row with `arrange()` or how to introduce new variables into the data set with `mutate()`?
 
