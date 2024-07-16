@@ -53,7 +53,7 @@ The dplyr commands designed for data manipulation operations are:
 
 There is another command `group_by()`,  which allows you to perform any of the above operation “by group”, where groups are defined as all rows that have the same value for a certain variable (column). 
 
-## Loading data set for examples/exercises
+## Preparing for some exercises 
 
 We are going to load the data set “phylum_data.txt”, which combines microbiome counts and covariates from some water samples around Woods hole (it combines `covariates` and some of the rows in `otus` data sets from previous tutorials). 
 
@@ -114,7 +114,11 @@ filter(phylum_data, Month == "Jan" | Month == "Feb")
 Build a new table (saving the changes), containing "Location", "Season", and all taxa whose name starts with "Ch", while preserving only the rows where type is "Outfall".
 
 ```{r}
+  Temporary_phylum_data <- filter(phylum_data, Type == "Outfall")
+
+  Ch_phylum_data <- select(Temporary_phylum_data, Location, Season, starts_with("Ch"))
   
+  Ch_phylum_data
 ```
 
 Tip: Since "Type" is not in the columns to be kept, you must perform filter before select.
@@ -142,8 +146,21 @@ so you can do multiple commands and save all of them:
 
 Repeat previous exercise with piping! (does the order of operations still matter? Explore!)
 
+**note:** the following code should fail to run
 ```{r}
-  
+  #The order of operations does matter. This code will fail: 
+  Ch_phylum_data <- phylum_data %>% 
+    select(Location, Season, starts_with("Ch")) %>%
+    filter(Type == "Outfall")
+```
+
+```{r}
+  #The order of operations does matter. This code will fail: 
+  Ch_phylum_data <- phylum_data %>% 
+    filter(Type == "Outfall") %>%
+    select(Location, Season, starts_with("Ch"))
+
+  Ch_phylum_data
 ```
 
 ## rename and relocate
@@ -192,7 +209,13 @@ phylum_data %>%
 With all you have learned, create a new data frame in which you maintain only the covariates and the Acidobacteria column. For this taxon, you preserve only the positive counts (discard zero values), and obtain the log counts. Order in decreasing order on these counts. Anything you note with the seasons?
 
 ```{r}
+Acidobacteria_data <- phylum_data %>%
+  select(Location, Month, Season, Type, Acidobacteria) %>%
+  filter(Acidobacteria > 0) %>%
+  mutate(log_Acidobacteria = log(Acidobacteria)) %>%
+  arrange(desc(Acidobacteria))
 
+Acidobacteria_data
 ```
 
 ## group by and summarize
@@ -211,11 +234,17 @@ phylum_data %>%
 
 `group_by()` admits more than one variable. 
 
-## Challenge Exercise 
+##Challenge exercise 
 
 Create a new data frame, finding the log counts of "Chlamydiae" by Location and Season, not including zero counts.
 
 ````{r}
+New_data <- phylum_data %>%
+  group_by(Location,Season) %>%
+  summarize(Chlamydiae = sum(Chlamydiae)) %>%
+  filter(Chlamydiae > 0) %>%
+  mutate(log_Chlamydiae = log(Chlamydiae))
 
+New_data
 ```
 

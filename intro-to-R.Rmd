@@ -81,6 +81,7 @@ phyloseq_obj <- readRDS("data/phyloseq_obj.rds")
 
 ## Tutorial 4: Data manipulation with the tidyverse
 
+Do you know how to order a data set by the entries of a row with `arrange()` or how to introduce new variables into the data set with `mutate()`?
 ...
 
 Exercises: 
