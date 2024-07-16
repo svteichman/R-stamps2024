@@ -16,7 +16,7 @@ the samples.
 ```{r}
 library(tidyverse)
 
-phylum_data <- read_tsv("../data/phylum_data.txt")
+phylum_data <- read_tsv("data/phylum_data.txt")
 ```
 
 
