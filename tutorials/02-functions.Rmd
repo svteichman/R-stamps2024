@@ -17,6 +17,8 @@ otus <- read.csv("data/otus.txt", sep = "\t", row.names = 1, header = T)
 
 ## Using functions in R
 
+**Note: ** some of the examples in this tutorial are designed to not run properly/return error. Do not panic if this happens
+
 Recall that base R gives us the ability to perform basic tasks and that we can install and load other packages to perform a wide variety of other tasks. These tasks are primarily performed using functions. A function is a script that performs a certain task with input specified by the user. You've already been using functions in the previous tutorial. 
 
 ```{r}
@@ -77,7 +79,7 @@ head(covariates)
 top(covariates)
 ```
 
-Exercise: Fill in missing elements of the function below to calculate the relative abundances from a specific sample in `abundances` (note that samples are represented by columns). The user will specify the sample they want with the index of that column. Each "___" should be filled in with the correct code.
+Exercise: Fill in missing elements of the function below to calculate the relative abundances from a specific sample in `otus` (note that samples are represented by columns). The user will specify the sample they want with the index of that column. Each "___" should be filled in with the correct code.
 
 ```{r, eval = FALSE}
 compute_rel_abund <- function(_______) { # add a required argument named "index" 
@@ -92,7 +94,7 @@ compute_rel_abund <- function(_______) { # add a required argument named "index"
 }
 ```
 
-Now check that your function works by running it on a the 3rd column of `abundances`. Make sure that the result sums to 1!
+Now check that your function works by running it on a the 3rd column of `otus`. Make sure that the result sums to 1!
 
 ```{r, eval = FALSE}
 rel_abund <- compute_rel_abund(3)
