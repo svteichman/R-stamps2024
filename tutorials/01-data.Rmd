@@ -35,31 +35,31 @@ If you want to know the dimension of your data without looking at the environmen
 
 ```{r}
 dim(covariates)
-dim(abundances)
+dim(otus)
 
 # we could also just get the number of rows or columns
 nrow(covariates)
 ncol(covariates)
 ```
 
-Now that we know how big our data is, we may want to know what variables are in our data. The function `names()` will give us variable names. The function `row.names()` will give us row names (if they exist in our data). 
+Now that we know how big our data is, we may want to know what variables it contains. The function `names()` will give us variable names. The function `row.names()` will give us row names (if they exist). 
 
 ```{r}
 # variable names
 names(covariates)
-names(abundances)
+names(otus)
 
 # row names
 row.names(covariates)
 # there are a lot of row names, we'll just look at the first 5
-row.names(abundances)[1:5] 
+row.names(otus)[1:5] 
 ```
 
 Finally, we may want to take a look at the first few rows of the data to see how it is organized. We can do this with the function `head()`. 
 
 ```{r}
 head(covariates)
-head(abundances)
+head(otus)
 ```
 
 Exercise: From what you've seen above, give a guess of what is in the `covariates` dataset.
@@ -137,8 +137,10 @@ Another data type that holds multiple values in R is a list. A list can take dif
 my_list <- list("number" = 5, letter = "a", logical = TRUE)
 my_list[[1]]
 my_list$letter
+```
 
-# we can also add vectors to our list
+It is possible to keep adding elements to a list
+```{r}
 my_list$vec_char <- vec
 my_list$vec_num <- vec_num
 my_list$vec_log <- vec_log
@@ -154,13 +156,22 @@ class(otus)
 class(covariates)
 ```
 
-A `data.frame` is a list that is made up of multiple vectors (representing variables) where each vector must be the same length. 
+A `data.frame` is a list that is made up of multiple vectors (representing variables) where each vector must be the same length (which can be verified with the `length()` function), but they may be of different data types. 
 
 ```{r}
 covariates$Month
+length(covariates$Month)
 class(covariates$Month)
-otus$JPA_Jan
+covariates$Season
+length(covariates$Season)
+class(covariates$Season)
+
+otus$JPA_Jan[1:10]
+length(otus$JPA_Jan)
 class(otus$JPA_Jan)
+otus$JPA_Feb[1:10]
+length(otus$JPA_Feb)
+class(otus$JPA_Feb)
 ```
 
 Because a data frame has rows and columns, if we want to subset from it we need to use a square bracket with multiple indices separated by commas. 
