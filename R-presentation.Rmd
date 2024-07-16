@@ -3,9 +3,8 @@ title: "An Introduction to R"
 author: "Sarah Teichman"
 date: ''
 output:
+  ioslides_presentation: default
   beamer_presentation: default
-  ioslides_presentation:
-    keep_md: yes
 subtitle: The basics
 ---
 
@@ -105,15 +104,6 @@ Use the **editor** for opening and writing scripts.
 - the `tidyverse` is a suite of common data manipulation and visualization packages
   - includes `dplyr`, `ggplot`, among others
 
-## Packages 
-
-- CRAN package repository has ~20,000 packages
-  - most packages available here
-  - install with `install.packages("package_name")`
-  - load in each R session with `library(package_name)`
-- Bioconductor has ~2,000 packages
-- anyone can make their own package (often available to download on GitHub)
-
 ## R Markdown 
 
 - in R scripts (.R), each line is evaluated unless it is a comment 
@@ -126,9 +116,9 @@ Use the **editor** for opening and writing scripts.
 ## What to do when you're stuck 
 
 - no one (that I know) writes code perfectly the first time! 
-- when I get an error message, I'll often remove any specific names of my data and put it directly into Google
-- some people like to ask ChatGPT for help in their code
-  - "write me an R script to calculate the centered log ratio (CLR) transformation of a vector of counts"
+- when I get an error message, I'll often start by Googling the error
+- you could also ask ChatGPT for help with your code
+  - "write me an R script to use ggplot to make a histogram of the variable 'count' in the data frame 'data'"
 - here at STAMPS, chat with your neighbors and get help from the instructional team! 
 
 ## This session
