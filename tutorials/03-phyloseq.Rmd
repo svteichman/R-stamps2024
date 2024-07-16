@@ -1,7 +1,6 @@
 ---
-title: "05: phyloseq"
+title: "03: phyloseq"
 author: "Sarah Teichman"
-date: "2023-07-21"
 output: html_document
 ---
 
@@ -110,7 +109,7 @@ Imagine we want to look into alpha diversity for our data.
 ```{r}
 # estimate several types of alpha diversity 
 estimate_richness(phyloseq_obj)
-# plot Shannon and Simpson diversity measures by location 
+# plot Shannon and Simpson diversity measures by location and season
 plot_richness(phyloseq_obj, x = "Location", color = "Season", measures = c("Shannon", "Simpson")) 
 ```
 
