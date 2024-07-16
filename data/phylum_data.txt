@@ -1,4 +1,4 @@
-"Location"	"Month"	"Season"	"Type"	"Acidobacteria"	"Actinobacteria"	"Bacteroidetes"	"Chlamydiae"	"Chlorobi"	"Chloroflexi"	"Cyanobacteria"	"Deferribacteres"	"Deinococcus-Thermus"	"Firmicutes"	"Fusobacteria"	"Lentisphaerae"	"OD1"	"OP8"	"Planctomycetes"	"Proteobacteria"	"Spirochaetes"	"TG-1"	"TM6"	"TM7"	"Tenericutes"	"Verrucomicrobia"	"phylum_NA"
+"Sample"	"Location"	"Month"	"Season"	"Type"	"Acidobacteria"	"Actinobacteria"	"Bacteroidetes"	"Chlamydiae"	"Chlorobi"	"Chloroflexi"	"Cyanobacteria"	"Deferribacteres"	"Deinococcus-Thermus"	"Firmicutes"	"Fusobacteria"	"Lentisphaerae"	"OD1"	"OP8"	"Planctomycetes"	"Proteobacteria"	"Spirochaetes"	"TG-1"	"TM6"	"TM7"	"Tenericutes"	"Verrucomicrobia"	"phylum_NA"
 "JPA_Jan"	"Jones-Palmer Ave"	"Jan"	"Winter"	"Outfall"	27	273	94	92	0	0	0	0	0	71	0	0	0	0	19	18843	0	68	0	36	0	0	1924
 "JPA_Feb"	"Jones-Palmer Ave"	"Feb"	"Winter"	"Outfall"	7	113	1064	11	0	0	23	0	0	26	0	0	0	0	13	12987	0	21	19	0	0	29	42
 "JPA_May"	"Jones-Palmer Ave"	"May"	"Summer"	"Outfall"	0	57	70	36	0	2	107	0	2	59	0	0	0	0	54	2226	0	0	56	0	1	40	10

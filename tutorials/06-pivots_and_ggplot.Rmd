@@ -1,0 +1,298 @@
+---
+title: '06: pivots and plotting with ggplot'
+author: "Shirley Mathur"
+date: "2024-07-13"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+First, let's load the `tidyverse` package and read in our data. For this tutorial,
+we will be working with the `phylum_data` dataset, which has the counts for all taxa
+across the samples taken from different locations along with the metadata describing
+the samples.
+```{r}
+library(tidyverse)
+
+phylum_data <- read_tsv("../data/phylum_data.txt")
+```
+
+
+
+## Pivots
+Pivoting lets you reorganize the structure of your data by rearranging columns and rows. This can be crutial to getting data in the right format for plotting. (you might be familiar with this concept from excel, or `melt` in python)
+
+You can pivot data wide or long. Wide data has more columns, and there is some type of data stored in the column names (e.g. sample, year, location). Long data has fewer columns, and the data that used to be part of the column names is now stored in a category column, with the values along side it. 
+
+
+The `pivot_wider()` function in R is used to transform data from a longer format to a wider format, allowing you to spread values across multiple columns based on a key-value pair. Conversely, the `pivot_longer()` function is used to transform data from a wider format to a longer format, where multiple columns are combined into key-value pairs, providing a more compact representation of the data.
+
+Let's try this with our table. Recall the column names:
+```{r}
+names(phylum_data)
+```
+Notice that many of the column names are taxa names. We can pivot the data longer, by creating a column called "taxa", and storing the count data in a column along side ("count").
+
+note: we are saving this as a new variable, to work with further in a bit. 
+```{r}
+phylum_data_long <- phylum_data %>% 
+  pivot_longer(
+    !c(Sample, Location, Month, Season, Type), #pivot all the rows except for the sample metadata
+    names_to = "taxa", values_to = "count"
+  )
+phylum_data_long
+```
+
+If we want to recover our original table, we cantake `phylum_data_long`, and pivot it wider _*by taxonomy*_ again. 
+
+
+```{r}
+phylum_data_wide <- phylum_data_long %>% 
+  pivot_wider(
+    names_from = taxa,
+    values_from = count
+    )
+phylum_data_wide
+```
+
+
+
+## Plotting
+Now, we will delve deeper into plotting with ggplot2.
+ 
+ggplot2 (commonly just referred to as just ggplot) is a R package used to make high quality plots for your data. 
+*ggplot2 is part of the tidyverse suite!*
+It offers consistent syntax and allows for detailed customization of almost every element of your plots. Visualization options range from bargraphs, boxplots, scatterplot, pie charts, histograms and more. 
+
+We have a lot of different taxa present in our dataframe, but for the present time, we are only
+interested in the twenty most prevalent taxa across all the samples. A vector containing these taxa has been provided below, along with code to obtain this vector for those who are interested.
+
+
+```{r top-taxa}
+#use the long-form table to get the counts of all taxa summed over all samples
+abundances_summary <- abundances_long %>% 
+  group_by(taxonomy) %>% 
+  summarise(count = sum(count))
+
+#now, arrange the above table so that the rows are in descending order of counts
+#(this means that are highest count taxa will be at the top of the dataframe)
+abundances_summary <- abundances_summary %>% 
+  arrange(desc(count))
+
+#now, subset the dataframe to get the top 20 taxa, and store their 'taxonomy'
+#values in a vector, these are our most prevalent taxa!
+top_taxa <- abundances_summary[1:10, ]$taxonomy
+
+top_taxa_summary <- abundances_summary[1:10, ]
+```
+
+Now, let's take our summarized taxa counts dataframe and make a plot!
+
+Say we want to make a plot about the raw taxa counts of our most prevalent taxa.
+This is about the simplest version we can make using ggplot. 
+
+In the code below, we first use the `ggplot` function and set the `data` argument
+equal to our dataframe, `abundances_summary`, and then set the `mapping` argument 
+to be equal to the `aes(x = taxonomy, y = count)` to specify that we want our 
+taxonomy labels on the x-axis and their counts on the y-axis.
+
+```{r top-taxa-counts}
+ggplot(abundances_summary, aes(x = taxonomy, y = count)) + 
+  geom_col()
+```
+
+
+We can note that the above code is equivalent to:
+```{r}
+abundances_summary %>% ggplot(aes(x = taxonomy, y = count)) +
+  geom_col()
+```
+
+You will typically see the first code used when plotting data in R. The reason is that we tend to put the data first and then use the pipe (%>%) to send it to the ggplot() function. This is nice for when we add further data wrangling functions between the data and the ggplot(). For example, a filter!
+
+```{r}
+superhero_info %>% 
+  filter(skin_color == "green") %>%
+  ggplot(aes(x = name, y = height)) +
+  geom_col()
+```
+
+The lines that come before the ggplot() function are piped, whereas from ggplot() onwards you have to use +. This is because we are now adding different layers and customization to the same plot.
+
+aes() stands for aesthetics - things we can see. These set the axes for the plot, and infact you can just plot the aesthetics like this:
+```{r}
+superhero_info %>%
+  filter(skin_color == "green") %>% 
+  ggplot(aes(x = name, y = height)) 
+```
+Lets clean this up a little bit- we can fix those axis labels like this:
+```{r}
+superhero_info %>% 
+  filter(skin_color == "green") %>%
+  ggplot(aes(x = name, y = height)) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))+ # hjust sets the alignment of the text.
+  geom_col()
+```
+
+```{r}
+superhero_info %>% 
+  filter(skin_color == "green") %>%
+  ggplot(aes(x = name, y = height)) +
+  geom_col()+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))+ 
+  labs(title = "Heights of Super Heros", x = "Hero Name", y = "Height (cm)")
+```
+
+Adding another aesthetic, fill, lets us fill in color by a variable of interest. 
+```{r}
+superhero_info %>% 
+  filter(skin_color == "green") %>%
+  ggplot(aes(x = name, y = height, fill = gender)) +
+  geom_col()+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))+ 
+  labs(title = "Heights of Super Heros", x = "Hero Name", y = "Height (cm)")
+```
+
+
+### Practice 2. 
+edit the code below to make a barchart of your own, choosing your own:
+- filter
+- x, y, and fill aesthetic
+- title and axis labels
+
+try choosing a different x aesthetic in particular
+
+(tip: for a barchart, usually y is numeric data. )
+```{r, eval=FALSE}
+superhero_info %>% 
+  filter(_____) %>%
+  ggplot(aes(x = ___, y = ___, fill = ___)) +
+  geom_col()+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))+ 
+  labs(title = "___", x = "___", y = "___")
+```
+
+lets test out a scatter plot, by choosing a continuous variable for both the weights and height. note that the aesthetic for coloring the points is "color", not "fill", and the geom() layer is "point".
+
+```{r}
+superhero_info %>% 
+  ggplot(aes(x = weight, y = height, color = gender)) +
+  geom_point()+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))+ 
+  labs(title = "Heights of Super Heros", x = "Weight", y = "Height (cm)")
+```
+
+## Applying to our microbial abundance data
+
+Lets test out some plotting with our microbial abundance data, first by generating a relative abundance column by running the code below
+```{r}
+abundances <- read_tsv("data/FWS_OTUs.txt")
+
+rel_abundances <- abundances %>%
+    rename("taxonomy" = `...1`) %>%
+    pivot_longer(!taxonomy, names_to = "name", values_to = "value") %>%
+    separate(name, c("where", "when"), remove = F) %>%
+    group_by(where, when) %>%
+    mutate(relative_abundance = value/sum(value))
+rel_abundances
+```
+
+Here we can make a scatter plot, plotting the relative abundance of each species by sample. adding `aplha = .5` in the geom layer makes the points 50% translucent
+```{r}
+rel_abundances %>% 
+  ggplot(aes(x = name, 
+             y = relative_abundance, 
+             col = when)) + 
+  geom_point(alpha=.5) +
+  labs(x = "", y = "Relative\nabundance")+
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))
+```
+
+
+
+Lets test out a new plot. Here is code to make a relative abundances
+
+
+```{r}
+rel_abundances <- rel_abundances %>% mutate(when = factor(when, 
+                       levels = c("Jan", "Feb", "May", "Jun", "Jul", "Aug"))) 
+rel_abundances
+```
+
+```{r}
+rel_abundances %>% 
+  filter(taxonomy == "Bacteria;Proteobacteria;Betaproteobacteria;Burkholderiales;Burkholderiaceae;Ralstonia") %>% 
+  ggplot(aes(x = name, 
+             y = relative_abundance, 
+             col = when)) + 
+  geom_point() +
+  labs(y = "Relative\nabundance")+
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))
+```
+### Practice 3. 
+Here is code to pivot the data wide again. first run this
+```{r}
+rel_abundances_wide <- abundances %>%
+  rename("taxonomy" = 1) %>%
+  pivot_longer(-1) %>%
+  mutate(relative_abundance = value/sum(value)) %>%
+  filter(taxonomy %in% c("Bacteria;Cyanobacteria;Cyanobacteria;SubsectionIV;Unassigned;Anabaena", "Bacteria;Proteobacteria;Betaproteobacteria;Burkholderiales;Burkholderiaceae;Ralstonia"))%>% 
+  select(!value) %>%
+  pivot_wider(names_from = taxonomy, 
+              values_from = relative_abundance) %>%
+  rename("Cyanobacteria" = 2, 
+         "Proteobacteria" = 3)
+
+rel_abundances_wide
+```
+
+
+Now, try to make a scatter plot of the relative abundances of Amy's favorite 2 taxa, against each other.
+
+- add the x & y aesthetics to match the 2 columns in rel_abundances_wide that represent Amy's favorite taxa.
+- debug the geom layer
+- fill in the x & y labels, and add a title
+
+```{r, eval=F}
+rel_abundances_wide %>% 
+ggplot(aes(x = ____, y = ____, fill = ____)) + 
+  geom_spot() +
+  labs(x="___", y = "___")+
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))
+```
+
+
+## Potential Additional Material (?)
+We generally might want to incorporate the metadata we have about the sample in the `covariates` table into both of our long form counts table and our relative abundances table so we can use that for plotting. 
+We can utilize information we learned in the previous lesson on data manipulation to accomplish this task. 
+
+
+```{r add-sample-metadata}
+#add the metadata columns by getting the relevant column values from the covariates dataframe
+#that correspond to the sample name of each of our samples
+relative_abundances <- relative_abundances %>%
+  mutate(location = covariates[which(covariates$SampleName == sample), ]$Location,
+         month = covariates[which(covariates$SampleName == sample), ]$Month,
+         season = covariates[which(covariates$SampleName == sample), ]$Season,
+         type = covariates[which(covariates$SampleName == sample), ]$Type)
+
+#reordering the columns for readability
+relative_abundances <- relative_abundances %>% 
+  relocate(location, month, season, type, .after = sample)
+
+#add the metadata columns by getting the relevant column values from the covariates dataframe
+#that correspond to the sample name of each of our samples
+abundances_long$location <- lapply(abundances_long$sample, 
+                                   function (x) covariates[which(covariates$SampleName == x),]$Location)
+abundances_long$month <- lapply(abundances_long$sample, 
+                                   function (x) covariates[which(covariates$SampleName == x),]$Month)
+abundances_long$season <- lapply(abundances_long$sample, 
+                                   function (x) covariates[which(covariates$SampleName == x),]$Season)
+abundances_long$type <- lapply(abundances_long$sample, 
+                                   function (x) covariates[which(covariates$SampleName == x),]$Type)
+#reordering the columns for readability
+abundances_long <- abundances_long %>% 
+  relocate(location, month, season, type, .after = sample)
+```
