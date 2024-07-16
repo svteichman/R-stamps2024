@@ -15,7 +15,7 @@ Welcome to R! The goal of this lesson is to level up your R skills, whether this
 
 ## Tutorial 1: Data and data types
 
-This tutorial provides an introduction to reading data into R and figuring out the basics about the dataset. It also contains an introduction to some of the basic data types in R (values, vectors, lists) and how to subset them. 
+This tutorial provides an introduction to reading data into R and figuring out the basics about the data frame. It also contains an introduction to some of the basic data types in R (values, vectors, lists) and how to subset them. 
 
 Exercises:
 
@@ -81,11 +81,24 @@ phyloseq_obj <- readRDS("data/phyloseq_obj.rds")
 
 ## Tutorial 4: Data manipulation with the tidyverse
 
-Do you know how to order a data set by the entries of a row with `arrange()` or how to introduce new variables into the data set with `mutate()`?
-...
+In this tutorial, we go through how to clean and reorganize data frames through the `dplyr` package. Do you know how to order a data set by the entries of a column with `arrange()` or how to introduce new variables into the data set with `mutate()`?
 
 Exercises: 
 
+1. Read the "phylum_data" file in the "data" folder and create a new data frame in which you maintain only the "Location", "Month", "Season", "Type" and the taxon "Acidobacteria". For this taxon, preserve in the data frame only the positive counts, and obtain the log counts. Order the rows by these log-counts.
+
+```{r}
+phylum_data <- read.csv("data/phylum_data.txt", sep = "\t", row.names = 1, header = T)
+
+New_phylum_data <- 
+```
+
+2. Using the same "phylum_data" data frame, create a new data frame showing the added counts of "Chlamydiae" by Location. 
+
+```{r}
+
+```
+ 
 ## Tutorial 5: Plotting and pivoting tables with the tidyverse 
 
 The tidyverse includes the `pivot_wider` and `pivot_longer` functions that are useful
