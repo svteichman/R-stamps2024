@@ -124,7 +124,14 @@ Use the **editor** for opening and writing scripts.
 ## This session
 
 - download the "intro_R.zip" file from ... and upload it to your remote RStudio instance
+- change your knit directory to be your "Current Directory" following the instructions below
+  - in your RStudio instance, click "Tools" from the top bar, then "Global Options"
+  - click on "R Markdown" in the left pane
+  - find the "Evaluate chunks in directory:" and select "Current Directory" from the drop-down
+  - click "Ok" to save the changes and exit
+
+
+## This session
 - work through the file "intro-to-R.Rmd" and the accompanying tutorials
   - this is self-paced, start where you think will be the most helpful to you
 - put your stickie notes up with questions!
-
