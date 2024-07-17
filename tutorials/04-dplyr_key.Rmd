@@ -13,10 +13,9 @@ knitr::opts_chunk$set(echo = TRUE)
 
 In this tutorial, we will go through how to manipulate data frames through the `dplyr` package. In previous tutorials, you learned how to load data into R as a data frame object. This tutorial focuses on modifying the data frames with the objective to clean and reorganize our data before analysis. 
 
-# STAMPS 2023
 ## Lesson 4 - dplyr and Tidyverse
 
-Tidyverse is a suite of powerful and cohesive R packages. The  dplyr package is part of this suite and has commands for common data manipulation. In this tutorial, we will overview the basics of using dplyr. 
+Tidyverse is a suite of powerful and cohesive R packages. The  `dplyr` package is part of this suite and has commands for common data manipulation. In this tutorial, we will overview the basics of using `dplyr`. 
 
 ## Installation 
 

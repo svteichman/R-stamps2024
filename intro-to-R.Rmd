@@ -87,7 +87,7 @@ Exercises:
 
 1. Read the "phylum_data" file in the "data" folder and create a new data frame in which you maintain only the "Location", "Month", "Season", "Type" and the taxon "Acidobacteria". For this taxon, preserve in the data frame only the positive counts, and obtain the log counts. Order the rows by these log-counts.
 
-```{r}
+```{r, eval = FALSE}
 phylum_data <- read.csv("data/phylum_data.txt", sep = "\t", row.names = 1, header = T)
 
 New_phylum_data <- 
@@ -112,12 +112,22 @@ Exercises:
 `phylum_data.txt` data that has a `taxa` column and a corresponding `count` column
 for the count of a taxa in a particular sample.
 
+```{r}
+
+```
 
 2. Use the table you made in the previous exericse to make a plot of the taxa counts for each taxa in the `phylum_data` table that is faceted by season and location, so that each plot show the summarised counts of each taxa for each season across each location.
+
+```{r}
+
+```
 
 3. Use the `phylum_data.txt` data to make a scatter plot of how the raw counts of Proteobacteria and
 Cyanobacteria vary together.
 
+```{r}
+
+```
 
 If you are able to complete the above exercises, you can try the bonus challenge in tutorial 5!
 

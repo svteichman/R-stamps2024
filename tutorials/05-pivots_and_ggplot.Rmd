@@ -16,7 +16,7 @@ the samples.
 ```{r}
 library(tidyverse)
 
-phylum_data <- read_tsv("../data/phylum_data.txt")
+phylum_data <- read_tsv("data/phylum_data.txt")
 ```
 
 
@@ -56,7 +56,7 @@ Now, we will delve deeper into plotting with ggplot2.
  
 ggplot2 (commonly just referred to as just ggplot) is a R package used to make high quality plots for your data. 
 *ggplot2 is part of the tidyverse suite!*
-It offers consistent syntax and allows for detailed customization of almost every element of your plots. Visualization options range from bargraphs, boxplots, scatterplot, pie charts, histograms and more. 
+It offers consistent syntax and allows for detailed customization of almost every element of your plots. Visualization options range from bargraphs, boxplots, scatterplots, pie charts, histograms and more. 
 
 First, we will summarise the sum of counts for each taxa across all of our samples using 
 the functions we learned from the `dplyr` tutorial.
