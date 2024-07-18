@@ -5,6 +5,7 @@ date: ''
 output:
   ioslides_presentation: default
   beamer_presentation: default
+  slidy_presentation: default
 subtitle: The basics
 ---
 
@@ -44,7 +45,7 @@ Download [here](https://posit.co/download/rstudio-desktop/).
   
 ## How to access RStudio server
 
-- find your personal R Studio server link from [this spreadsheet](https://hackmd.io/oz5sTY9KRCqdHHkM9iNJyg?view) *update!!
+- find your personal R Studio server link from [this spreadsheet](https://github.com/mblstamps/stamps2024/wiki/accessing-our-cloud-computers)
 - username: stamps
 - password: stamps2024
 
