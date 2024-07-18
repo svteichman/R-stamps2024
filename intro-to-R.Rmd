@@ -1,6 +1,6 @@
 ---
 title: "Introduction to R, STAMPS 2024"
-author: "Sarah Teichman"
+author: "Maria Valdez C., Sarah Teichman, Shirley Mathur"
 date: "2024-07-10"
 output: html_document
 ---
