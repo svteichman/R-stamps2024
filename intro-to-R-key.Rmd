@@ -101,13 +101,19 @@ Exercises:
 ```{r, eval = FALSE}
 phylum_data <- read.csv("data/phylum_data.txt", sep = "\t", row.names = 1, header = T)
 
-New_phylum_data <- 
+New_phylum_data <- phylum_data %>%
+  select(Location, Month, Season, Type, Acidobacteria) %>%
+  filter(Acidobacteria > 0) %>%
+  mutate(log_Acidobacteria = log(Acidobacteria)) %>%
+  arrange(log_Acidobacteria)
 ```
 
 2. Using the same "phylum_data" data frame, create a new data frame showing the added counts of "Chlamydiae" by Location. 
 
 ```{r}
-
+  Chlam_Loc_phylum_data <- phylum_data %>%
+    group_by(Location) %>%
+    summarise(Chlamydiae = sum(Chlamydiae))
 ```
  
 ## Tutorial 5: Plotting and pivoting tables with the tidyverse 
@@ -124,20 +130,37 @@ Exercises:
 for the count of a taxa in a particular sample.
 
 ```{r}
+phylum_data <- read_tsv("data/phylum_data.txt")
 
+phylum_data_long <- phylum_data %>% 
+  pivot_longer(
+    !c(Sample, Location, Month, Season, Type), #pivot all the rows except for the sample metadata
+    names_to = "taxa", values_to = "count"
+  )
+phylum_data_long
 ```
 
 2. Use the table you made in the previous exericse to make a plot of the taxa counts for each taxa in the `phylum_data` table that is faceted by season and location, so that each plot show the summarised counts of each taxa for each season across each location.
 
 ```{r}
+phylum_summary <- phylum_data_long %>%
+  group_by(taxa, Location, Season) %>%
+  summarise(count = sum(count))
 
+phylum_summary %>% 
+  ggplot(aes(x = taxa, y = count, fill = Location)) +
+  geom_col()+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) + 
+  facet_grid(Location ~ Season) +
+  labs(title = "Counts of Taxa", x = "Taxa", y = "Count")
 ```
 
 3. Use the `phylum_data.txt` data to make a scatter plot of how the raw counts of Proteobacteria and
 Cyanobacteria vary together.
 
 ```{r}
-
+phylum_data %>% ggplot(aes(x = Proteobacteria, y = Cyanobacteria)) +
+  geom_point()
 ```
 
 If you are able to complete the above exercises, you can try the bonus challenge in tutorial 5!
@@ -157,10 +180,46 @@ If you'd like to decide how to proceed, try whatever you think could work! There
 
 1) Use the phyloseq object `phyloseq_obj` and the `distance` function from the `phyloseq` package to calculate Bray-Curtis distances between points and extract the distance matrix.
 
+```{r}
+  phyloseq_obj <- readRDS("data/phyloseq_obj.rds")
+  bray_distance <- as.matrix(phyloseq::distance(phyloseq_obj, "bray"))
+```
+
 2) From this distance matrix, extract small sub-matrices that include distances just for samples from the summer, just for samples from the winter, and distances between samples from the summer and samples from the winter. 
+
+```{r}
+season_vec <- unlist(phyloseq::sample_data(phyloseq_obj)[, 3])
+
+summer_dist <- bray_distance[season_vec == "Summer", season_vec == "Summer"]
+winter_dist <- bray_distance[season_vec == "Winter", season_vec == "Winter"]
+between_dist <- bray_distance[season_vec == "Summer", season_vec == "Winter"]
+```
 
 3) Turn each of these distance matrices into a vector, making sure not to double count distances (you want to count the distance between summer sample 1 and summer sample 2 once, although it appears in your distance matrix twice) and to remove distances between a sample and itself. 
 
+```{r}
+summer_vec <- as.vector(summer_dist[upper.tri(summer_dist)])
+winter_vec <- as.vector(winter_dist[upper.tri(winter_dist)])  
+between_vec <- as.vector(between_dist)  
+```
+
 4) Make a dataframe with one variable that holds the distances and one variable that holds the type of distance (is it a distance between two summer samples, a distance between two winter samples, or a distance between one summer and one winter sample?). 
 
+```{r}
+bc_df <- data.frame(
+  dissim = c(summer_vec, winter_vec, between_vec),
+  type = c(rep("Summer", length(summer_vec)),
+           rep("Winter", length(winter_vec)),
+           rep("Between season", length(between_vec))))
+```
+
 5) Use that dataframe to make boxplots with ggplot. Make sure to include an interpretable y-axis label.
+
+```{r}
+my_plot <- ggplot(data = bc_df, aes(x = type, y = dissim)) + 
+  geom_boxplot() + 
+  ylim(c(0, 1)) + 
+  labs(x = "", y = "Bray-Curtis dissimilarity") 
+
+my_plot
+```
